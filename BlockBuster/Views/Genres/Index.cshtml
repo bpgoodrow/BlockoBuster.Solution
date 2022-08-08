@@ -1,0 +1,19 @@
+@using BlockBuster.Models;
+@model IEnumerable<BlockBuster.Models.Genre>
+
+<h1>Genres</h1>
+
+@if(Model.Any())
+{
+  <h3>No genres have been added yet</h3>
+}
+
+<ul>
+  @foreach(Genre genre in Model)
+  {
+    <li>@Html.ActionLink($"{genre.GenreName}", "Details", new { id = genre.GenreId})</li>
+  }
+</ul>
+
+<p>@Html.ActionLink("Add a new genre", "Create")
+<p>@Html.ActionLink("Home", "Index", "Home")

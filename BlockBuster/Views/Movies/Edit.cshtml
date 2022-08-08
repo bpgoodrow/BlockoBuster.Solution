@@ -1,0 +1,17 @@
+@model BlockBuster.Models.Movie
+
+<h2>Edit</h2>
+
+<h4>Edit this Movie: @Html.DisplayFor(model => model.MovieName)</h4>
+
+@using (Html.BeginForm())
+{
+  @Html.HiddenFor(model => model.MovieId)
+
+  @Html.LabelFor(model => model.MovieName)
+  @Html.EditorFor(model => model.MovieName)
+
+  <input type="submit" value="Save"/>
+}
+
+<p>@Html.ActionLink("Back to list", "Index")</p>

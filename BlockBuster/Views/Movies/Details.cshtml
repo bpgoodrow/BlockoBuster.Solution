@@ -1,0 +1,31 @@
+@model BlockBuster.Models.Movie
+
+<h2>Movie Details</h2>
+<hr />
+<h3>@Html.DisplayNameFor(model => model.MovieName): @Html.DisplayFor(model => model.MovieName)</h3>
+
+@if(@Model.JoinEntities.Count == 0)
+{
+  <p>This Movie does not belong to any genres</p>
+}
+else
+{
+  <h4>Genres:</h4>
+  <ul>
+  @foreach(var join in Model.JoinEntities)
+  {
+    <li>@join.Genre.GenreName</li>
+    @using (Html.BeginForm("DeleteGenre", "Movies"))
+    {
+      @Html.Hidden("joinId", @join.GenreMovieId)
+      <input type="submit" value="Delete"/>
+    }
+  }
+  </ul>
+}
+
+<p>@Html.ActionLink("Add a Genre", "AddGenre", new { id = Model.MovieId })</p>
+
+<p>@Html.ActionLink("Back to list", "Index")</p>
+<p>@Html.ActionLink("Edit Movie", "Edit", new { id = Model.MovieId })</p>
+<p>@Html.ActionLink("Delete Movie", "Delete", new { id = Model.MovieId })</p>

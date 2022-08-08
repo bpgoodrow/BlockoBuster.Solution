@@ -1,0 +1,17 @@
+@model BlockBuster.Models.Genre
+
+<h2>Add a genre</h2>
+
+<h4>Add a Movie to this Genre: @Html.DisplayFor(model => model.GenreName)</h4>
+
+@using (Html.BeginForm())
+{
+  @Html.HiddenFor(model => model.GenreId)
+
+  @Html.Label("Select Movie")
+  @Html.DropDownList("MovieId")
+
+  <input type="submit" value="Save" />
+}
+
+<p>@Html.ActionLink("Genres", "Index")</p>

@@ -1,0 +1,25 @@
+
+@model BlockBuster.Models.Genre;
+
+<h2>Category Details</h2>
+<hr />
+<h3>@Html.DisplayNameFor(model => model.GenreName): @Html.DisplayFor(model => model.GenreName)</h3>
+
+@if(@Model.JoinEntities.Count == 0)
+{
+  <p>This Genre does not contain any Movies</p>
+}
+else
+{
+  <h4>Movies in this genre:</h4>
+  <ul>
+  @foreach(var join in Model.JoinEntities)
+  {
+    <li>@join.Movie.MovieName</li>
+  }
+  </ul>
+}
+
+<p>@Html.ActionLink("Genres", "Index")</p>
+<p>@Html.ActionLink("Edit Genre", "Edit", new { id = Model.GenreId })</p>
+<p>@Html.ActionLink("Delete Genre", "Delete", new { id = Model.GenreId })</p>

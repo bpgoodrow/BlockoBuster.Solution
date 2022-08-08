@@ -1,0 +1,20 @@
+@using BlockBuster.Models 
+@model IEnumerable<BlockBuster.Models.Movie>
+
+<h1>Movies</h1>
+
+@if(Model.Any())
+{
+  <ul>
+    @foreach(Movie movie in Model)
+    {
+      <li>@Html.ActionLink($"{movie.MovieName}", "Details", new { id = movie.MovieId})</li>
+    }
+  </ul>
+}
+else
+{
+  <h3>No movies have been added yet!</h3>
+}
+<p>@Html.ActionLink("Add new movie", "Create")</p>
+<p>@Html.ActionLink("Home", "Index", "Home")</p>

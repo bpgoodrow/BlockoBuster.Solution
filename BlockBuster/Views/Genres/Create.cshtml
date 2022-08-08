@@ -1,0 +1,12 @@
+@model BlockBuster.Models.Genre
+
+<h4>Add a new Genre</h4>
+
+@using (Html.BeginForm())
+{
+  @Html.LabelFor(model => model.GenreName)
+  @Html.TextBoxFor(model => model.GenreName)
+
+  <input type="submit" value="New Genre" class="btn btn-default" />
+}
+<p>@Html.ActionLink("Genres", "Index")</p>
