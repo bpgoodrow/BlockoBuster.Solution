@@ -1,9 +1,11 @@
 @model BlockBuster.Models.Movie
 
+@using BlockBuster.Models;
+
 <h2>Movie Details</h2>
 <hr />
 <h3>@Html.DisplayNameFor(model => model.MovieName): @Html.DisplayFor(model => model.MovieName)</h3>
-
+<h4>@Html.DisplayNameFor(model => model.MovieCopies): @Html.DisplayFor(model => model.MovieCopies)
 @if(@Model.JoinEntities.Count == 0)
 {
   <p>This Movie does not belong to any genres</p>
@@ -24,8 +26,29 @@ else
   </ul>
 }
 
-<p>@Html.ActionLink("Add a Genre", "AddGenre", new { id = Model.MovieId })</p>
+@if(ViewBag.CopiesList.Count == 0)
+{
+  <p>There are no copies of this movie</p>
+}
+else
+{
+  <h4>All movie copies:</h4>
+  <ul>
+  @foreach(var copy in ViewBag.CopiesList)
+  {
+    @if (copy.CheckedOut == false)
+    {
+      <li>@copy.CopyName | @Html.ActionLink("Checkout Movie", "Index", "CheckOuts", new { id = copy.CopyId })</li>
+    }
+    else
+    {
+      <li>@copy.CopyName | Checked out</li>
+    }
+  }
+  </ul>
+}
 
+<p>@Html.ActionLink("Add a Genre", "AddGenre", new { id = Model.MovieId })</p>
 <p>@Html.ActionLink("Back to list", "Index")</p>
 <p>@Html.ActionLink("Edit Movie", "Edit", new { id = Model.MovieId })</p>
 <p>@Html.ActionLink("Delete Movie", "Delete", new { id = Model.MovieId })</p>

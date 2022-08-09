@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlockBuster.Migrations
 {
     [DbContext(typeof(BlockBusterContext))]
-    [Migration("20220808211904_Intial")]
-    partial class Intial
+    [Migration("20220809164335_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -85,6 +85,55 @@ namespace BlockBuster.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("BlockBuster.Models.CheckOut", b =>
+                {
+                    b.Property<int>("CheckOutId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("CopyId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DueDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("OverDue")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int>("PatronId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CheckOutId");
+
+                    b.HasIndex("CopyId");
+
+                    b.HasIndex("PatronId");
+
+                    b.ToTable("CheckOuts");
+                });
+
+            modelBuilder.Entity("BlockBuster.Models.Copy", b =>
+                {
+                    b.Property<int>("CopyId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<bool>("CheckedOut")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("CopyName")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CopyId");
+
+                    b.HasIndex("MovieId");
+
+                    b.ToTable("Copies");
+                });
+
             modelBuilder.Entity("BlockBuster.Models.Genre", b =>
                 {
                     b.Property<int>("GenreId")
@@ -126,12 +175,29 @@ namespace BlockBuster.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    b.Property<int>("MovieCopies")
+                        .HasColumnType("int");
+
                     b.Property<string>("MovieName")
                         .HasColumnType("longtext");
 
                     b.HasKey("MovieId");
 
                     b.ToTable("Movies");
+                });
+
+            modelBuilder.Entity("BlockBuster.Models.Patron", b =>
+                {
+                    b.Property<int>("PatronId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("PatronName")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("PatronId");
+
+                    b.ToTable("Patrons");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -262,6 +328,36 @@ namespace BlockBuster.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("BlockBuster.Models.CheckOut", b =>
+                {
+                    b.HasOne("BlockBuster.Models.Copy", "Copy")
+                        .WithMany()
+                        .HasForeignKey("CopyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BlockBuster.Models.Patron", "Patron")
+                        .WithMany("JoinEntities")
+                        .HasForeignKey("PatronId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Copy");
+
+                    b.Navigation("Patron");
+                });
+
+            modelBuilder.Entity("BlockBuster.Models.Copy", b =>
+                {
+                    b.HasOne("BlockBuster.Models.Movie", "Movie")
+                        .WithMany()
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Movie");
+                });
+
             modelBuilder.Entity("BlockBuster.Models.GenreMovie", b =>
                 {
                     b.HasOne("BlockBuster.Models.Genre", "Genre")
@@ -338,6 +434,11 @@ namespace BlockBuster.Migrations
                 });
 
             modelBuilder.Entity("BlockBuster.Models.Movie", b =>
+                {
+                    b.Navigation("JoinEntities");
+                });
+
+            modelBuilder.Entity("BlockBuster.Models.Patron", b =>
                 {
                     b.Navigation("JoinEntities");
                 });

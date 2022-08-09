@@ -40,6 +40,11 @@ namespace BlockBuster.Controllers
     {
       _db.Movies.Add(movie);
       _db.SaveChanges();
+      for (int i=0; i  <= movie.MovieCopies; i++)
+      {
+        _db.Copies.Add(new Copy(movie.MovieName + "Copy" + (i + 1).ToString(), movie.MovieId));
+        _db.SaveChanges();
+      }
       return RedirectToAction("Index");
     }
 
@@ -49,6 +54,9 @@ namespace BlockBuster.Controllers
           .Include(movie => movie.JoinEntities)
           .ThenInclude(join => join.Genre)
           .FirstOrDefault(movie => movie.MovieId == id);
+
+      ViewBag.CopiesList = _db.Copies.Where(copy => copy.MovieId == id).ToList();
+
       return View(thisMovie);
     }
 

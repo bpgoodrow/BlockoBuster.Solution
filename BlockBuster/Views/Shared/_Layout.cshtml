@@ -7,9 +7,11 @@
     <link rel="stylesheet" href="~/css/styles.css">
   </head>
   <body>
+    <div class="header">
+      <h1>@Html.ActionLink("BOLOCKOBUSTER", "Index", "Home")</h1>
+    </div>
     @RenderBody()
     <div class="footer">
-      <p>@Html.ActionLink("Home", "Index", "Home")</p>
     </div>
   </body>
 </html>

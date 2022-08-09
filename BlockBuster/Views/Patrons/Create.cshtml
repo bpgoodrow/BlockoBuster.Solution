@@ -1,0 +1,12 @@
+@model BlockBuster.Models.Patron
+
+<h4>Create Patron</h4>
+
+@using (Html.BeginForm())
+{
+  @Html.LabelFor(model => model.PatronName)
+  @Html.TextBoxFor(model => model.PatronName)
+
+  <input type="submit" value="New Patron" class="btn btn-default" />
+}
+<p>@Html.ActionLink("Patrons", "Index")</p>

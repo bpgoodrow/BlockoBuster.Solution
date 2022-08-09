@@ -1,3 +1,10 @@
+.header {
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
 .footer {
   position: fixed;
   bottom: 0;

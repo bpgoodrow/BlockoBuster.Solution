@@ -10,6 +10,7 @@ namespace BlockBuster.Models
     }
     public int MovieId { get; set; }
     public string MovieName { get; set; }
+    public int MovieCopies { get; set; }
     public virtual ICollection<GenreMovie> JoinEntities { get; set; }
   }
 }

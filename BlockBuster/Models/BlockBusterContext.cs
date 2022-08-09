@@ -8,6 +8,9 @@ namespace BlockBuster.Models
     public DbSet<Genre> Genres { get; set; }
     public DbSet<Movie> Movies { get; set; }
     public DbSet<GenreMovie> GenreMovie { get; set; }
+    public DbSet<Copy> Copies { get; set; }
+    public DbSet<CheckOut> CheckOuts { get; set; }
+    public DbSet<Patron> Patrons { get; set; }
 
     public BlockBusterContext(DbContextOptions options) : base(options) { }
 

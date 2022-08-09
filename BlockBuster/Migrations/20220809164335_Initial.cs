@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BlockBuster.Migrations
 {
-    public partial class Intial : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -89,11 +89,27 @@ namespace BlockBuster.Migrations
                     MovieId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     MovieName = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4")
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    MovieCopies = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Movies", x => x.MovieId);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Patrons",
+                columns: table => new
+                {
+                    PatronId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    PatronName = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Patrons", x => x.PatronId);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -225,6 +241,29 @@ namespace BlockBuster.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "Copies",
+                columns: table => new
+                {
+                    CopyId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    CopyName = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    MovieId = table.Column<int>(type: "int", nullable: false),
+                    CheckedOut = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Copies", x => x.CopyId);
+                    table.ForeignKey(
+                        name: "FK_Copies_Movies_MovieId",
+                        column: x => x.MovieId,
+                        principalTable: "Movies",
+                        principalColumn: "MovieId",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "GenreMovie",
                 columns: table => new
                 {
@@ -247,6 +286,35 @@ namespace BlockBuster.Migrations
                         column: x => x.MovieId,
                         principalTable: "Movies",
                         principalColumn: "MovieId",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "CheckOuts",
+                columns: table => new
+                {
+                    CheckOutId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    CopyId = table.Column<int>(type: "int", nullable: false),
+                    PatronId = table.Column<int>(type: "int", nullable: false),
+                    DueDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    OverDue = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CheckOuts", x => x.CheckOutId);
+                    table.ForeignKey(
+                        name: "FK_CheckOuts_Copies_CopyId",
+                        column: x => x.CopyId,
+                        principalTable: "Copies",
+                        principalColumn: "CopyId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CheckOuts_Patrons_PatronId",
+                        column: x => x.PatronId,
+                        principalTable: "Patrons",
+                        principalColumn: "PatronId",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
@@ -289,6 +357,21 @@ namespace BlockBuster.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_CheckOuts_CopyId",
+                table: "CheckOuts",
+                column: "CopyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CheckOuts_PatronId",
+                table: "CheckOuts",
+                column: "PatronId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Copies_MovieId",
+                table: "Copies",
+                column: "MovieId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_GenreMovie_GenreId",
                 table: "GenreMovie",
                 column: "GenreId");
@@ -317,6 +400,9 @@ namespace BlockBuster.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "CheckOuts");
+
+            migrationBuilder.DropTable(
                 name: "GenreMovie");
 
             migrationBuilder.DropTable(
@@ -324,6 +410,12 @@ namespace BlockBuster.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Copies");
+
+            migrationBuilder.DropTable(
+                name: "Patrons");
 
             migrationBuilder.DropTable(
                 name: "Genres");

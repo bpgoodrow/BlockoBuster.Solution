@@ -1,0 +1,26 @@
+
+@model BlockBuster.Models.Patron;
+
+<h2>Patron Details</h2>
+<hr />
+<h3>@Html.DisplayNameFor(model => model.PatronName): @Html.DisplayFor(model => model.PatronName)</h3>
+
+@if(@Model.JoinEntities.Count == 0)
+{
+  <p>This Patron has not rented any movies</p>
+}
+else
+{
+  <h4>Rentals:</h4>
+  <ul>
+  @foreach(var join in Model.JoinEntities)
+  {
+    <li>@join.Copy.CopyName</li>
+    @using (Html.BeginForm("ReturnCopy", "CheckOuts"))
+    {
+      @Html.Hidden("joinId", @join.CheckOutId)
+      <input type="submit" value="Return"/>
+    }
+  }
+  </ul>
+}
