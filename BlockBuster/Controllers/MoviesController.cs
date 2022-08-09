@@ -40,9 +40,9 @@ namespace BlockBuster.Controllers
     {
       _db.Movies.Add(movie);
       _db.SaveChanges();
-      for (int i=0; i  <= movie.MovieCopies; i++)
+      for (int i=1; i  <= movie.MovieCopies; i++)
       {
-        _db.Copies.Add(new Copy(movie.MovieName + "Copy" + (i + 1).ToString(), movie.MovieId));
+        _db.Copies.Add(new Copy(movie.MovieName + " Copy " + (i).ToString(), movie.MovieId));
         _db.SaveChanges();
       }
       return RedirectToAction("Index");

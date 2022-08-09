@@ -1,5 +1,6 @@
 
 @model BlockBuster.Models.Patron;
+@using BlockBuster.Models;
 
 <h2>Patron Details</h2>
 <hr />
@@ -15,7 +16,14 @@ else
   <ul>
   @foreach(var join in Model.JoinEntities)
   {
-    <li>@join.Copy.CopyName</li>
+    @if (join.DueDate < DateTime.Now)
+    {
+      <li>@join.Copy.CopyName | This movie is overdue</li>
+    }
+    else
+    {
+      <li>@join.Copy.CopyName | Due By: @join.DueDate </li>
+    }
     @using (Html.BeginForm("ReturnCopy", "CheckOuts"))
     {
       @Html.Hidden("joinId", @join.CheckOutId)

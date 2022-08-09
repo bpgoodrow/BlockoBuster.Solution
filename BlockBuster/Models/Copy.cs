@@ -19,7 +19,6 @@ namespace BlockBuster.Models
     public int CopyId { get; set; }
     public int MovieId { get; set; }
     public bool CheckedOut { get; set; }
-    
     public virtual Movie Movie { get; set; }
   }
 }

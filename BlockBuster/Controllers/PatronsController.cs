@@ -64,13 +64,13 @@ namespace BlockBuster.Controllers
       return RedirectToAction("Index");
     }
 
-    [HttpPost]
-    public ActionResult ReturnCopy(int joinId)
-    {
-      var joinEntry = _db.CheckOuts.FirstOrDefault(entry => entry.CheckOutId == joinId);
-      _db.CheckOuts.Remove(joinEntry);
-      _db.SaveChanges();
-      return RedirectToAction("Index");
-    }
+    // [HttpPost]
+    // public ActionResult ReturnCopy(int joinId)
+    // {
+    //   var joinEntry = _db.CheckOuts.FirstOrDefault(entry => entry.CheckOutId == joinId);
+    //   _db.CheckOuts.Remove(joinEntry);
+    //   _db.SaveChanges();
+    //   return RedirectToAction("Index");
+    // }
   }
 }

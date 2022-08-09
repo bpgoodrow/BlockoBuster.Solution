@@ -95,9 +95,6 @@ namespace BlockBuster.Migrations
                     b.Property<DateTime>("DueDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<bool>("OverDue")
-                        .HasColumnType("tinyint(1)");
-
                     b.Property<int>("PatronId")
                         .HasColumnType("int");
 

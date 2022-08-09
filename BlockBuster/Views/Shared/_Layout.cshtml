@@ -8,10 +8,33 @@
   </head>
   <body>
     <div class="header">
-      <h1>@Html.ActionLink("BOLOCKOBUSTER", "Index", "Home")</h1>
+      <div class="container">
+        <h1>@Html.ActionLink("BOLOCKOBUSTER", "Index", "Home")</h1>
+      </div>
+      <div class="MenuContainer">
+        <div class="MenuContainerObject">
+          <p>@Html.ActionLink("MOVIES", "Index","Movies")
+        </div>
+        <div class="MenuContainerObject">
+          <p>@Html.ActionLink("GENRES", "Index", "Genres")
+        </div>
+        <div class="MenuContainerObject">
+          <p>@Html.ActionLink("PATRONS", "Index", "Patrons")
+        </div>
+        <div class="MenuContainerObject">
+          <p>@Html.ActionLink("ACCOUNT", "Index", "Account")
+        </div>
+      </div>
     </div>
-    @RenderBody()
+    <div class="cardcontainer">
+      <div class="card">
+        <div class="contentcontainer">
+          @RenderBody()
+        </div>
+      </div>
+    </div>
     <div class="footer">
+      <p>© 2022 BOLOCKOBUSTER. All Rights Reserved.</p>
     </div>
   </body>
 </html>

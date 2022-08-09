@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlockBuster.Migrations
 {
     [DbContext(typeof(BlockBusterContext))]
-    [Migration("20220809164335_Initial")]
+    [Migration("20220809221717_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -96,9 +96,6 @@ namespace BlockBuster.Migrations
 
                     b.Property<DateTime>("DueDate")
                         .HasColumnType("datetime(6)");
-
-                    b.Property<bool>("OverDue")
-                        .HasColumnType("tinyint(1)");
 
                     b.Property<int>("PatronId")
                         .HasColumnType("int");

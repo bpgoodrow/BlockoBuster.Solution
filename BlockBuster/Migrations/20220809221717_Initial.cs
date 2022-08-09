@@ -298,8 +298,7 @@ namespace BlockBuster.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     CopyId = table.Column<int>(type: "int", nullable: false),
                     PatronId = table.Column<int>(type: "int", nullable: false),
-                    DueDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    OverDue = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                    DueDate = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -1,0 +1,21 @@
+@using BlockBuster.Models;
+@model BlockBuster.Models.Copy;
+
+<h2>Return this copy</h2>
+
+
+@if (@Model.CheckedOut == true)
+{
+  @using (Html.BeginForm())
+  {
+    @Html.HiddenFor(model => model.CopyId)
+
+    @Html.LabelFor(model => model.CopyName)
+
+    <input type="submit" value="Save" />
+  }
+}
+else
+{
+  <p>This copy is available</p> 
+}

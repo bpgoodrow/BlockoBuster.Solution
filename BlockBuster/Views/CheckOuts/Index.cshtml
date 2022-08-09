@@ -5,13 +5,19 @@
 
 <h4>Who do you want to check this copy out to?</h4>
 
-@using (Html.BeginForm())
+@if (@Model.CheckedOut == false)
 {
-  @Html.HiddenFor(model => model.CopyId)
-  @Html.HiddenFor(model => model.CopyId)
+  @using (Html.BeginForm())
+  {
+    @Html.HiddenFor(model => model.CopyId)
 
-  @Html.Label("Select Patron")
-  @Html.DropDownList("PatronId")
+    @Html.Label("Select Patron")
+    @Html.DropDownList("PatronId")
 
-  <input type="submit" value="Save" />
+    <input type="submit" value="Save" />
+  }
+}
+else
+{
+  <p>This copy is already checked out</p> 
 }
