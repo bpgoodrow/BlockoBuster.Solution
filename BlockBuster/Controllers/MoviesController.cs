@@ -22,13 +22,14 @@ namespace BlockBuster.Controllers
       _userManager = userManager;
       _db = db;
     }
-
+    
+    [Authorize(Roles="Patron,Clerk")]
     public ActionResult Index()
     {
       return View(_db.Movies.ToList());
     }
 
-    [Authorize]
+    [Authorize(Roles="Clerk")]
     public ActionResult Create()
     {
       ViewBag.GenreId = new SelectList(_db.Genres, "GenreId", "GenreName");
@@ -48,6 +49,7 @@ namespace BlockBuster.Controllers
       return RedirectToAction("Index");
     }
 
+    [Authorize(Roles="Clerk, Patron")]
     public ActionResult Details(int id)
     {
       var thisMovie = _db.Movies
@@ -60,7 +62,7 @@ namespace BlockBuster.Controllers
       return View(thisMovie);
     }
 
-    [Authorize]
+    [Authorize(Roles="Clerk")]
     public ActionResult Edit(int id)
     {
       var thisMovie = _db.Movies.FirstOrDefault(movie => movie.MovieId == id);
@@ -80,7 +82,7 @@ namespace BlockBuster.Controllers
       return RedirectToAction("Index");
     }
 
-    [Authorize]
+    [Authorize(Roles="Clerk")]
     public ActionResult AddGenre(int id)
     {
       var thisMovie = _db.Movies.FirstOrDefault(movie => movie.MovieId == id);
@@ -99,7 +101,7 @@ namespace BlockBuster.Controllers
       return RedirectToAction("Index");
     }
 
-    [Authorize]
+    [Authorize(Roles="Clerk")]
     public ActionResult Delete(int id)
     {
       var thisMovie = _db.Movies.FirstOrDefault(movie => movie.MovieId == id);

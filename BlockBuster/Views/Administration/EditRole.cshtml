@@ -1,0 +1,35 @@
+@using BlockBuster.ViewModels
+@model EditRoleViewModel
+
+<h1>Edit Role</h1>
+
+@using (Html.BeginForm())
+{
+  @Html.LabelFor(m => m.Id)
+  @Html.TextBoxFor(m => m.Id, new { disabled="disabled"})
+
+  @Html.LabelFor(m => m.RoleName)
+  @Html.TextBoxFor(m => m.RoleName)
+
+  <input type="submit" value="Update" />
+}
+
+@Html.ActionLink("Cancel", "ListRoles", "Administration")
+
+
+<h3>Users in this role: </h3>
+
+@if(Model.Users.Any())
+{
+  <ul>
+    @foreach(var user in Model.Users)
+    {
+      <li>@user</li>
+    }
+  </ul>
+}
+else
+{
+  <h5>No users at the moment</h5>
+}
+@Html.ActionLink("Add or remove users", "EditUsersInRole", "Administration", new {roleId = Model.Id})

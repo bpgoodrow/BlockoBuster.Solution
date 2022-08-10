@@ -1,0 +1,12 @@
+@using BlockBuster.ViewModels
+@model CreateRoleViewModel
+
+<h2>Create a new role</h2>
+<hr />
+@using (Html.BeginForm("CreateRole", "Administration", FormMethod.Post))
+{
+    @Html.LabelFor(user => user.RoleName)
+    @Html.TextBoxFor(user=> user.RoleName)
+
+    <input type="submit" value="Create Role"/>
+}

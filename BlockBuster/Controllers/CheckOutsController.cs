@@ -14,6 +14,7 @@ using System.Diagnostics;
 
 namespace BlockBuster.Controllers
 {
+  [Authorize(Roles="Patron")]
   public class CheckOutsController : Controller 
   {
     private readonly BlockBusterContext _db;

@@ -61,9 +61,14 @@ a:hover {
   color: white;
 }
 
+.roleCard {
+  min-height: 200px;
+}
+
+
 .contentcontainer {
   margin-top: 25px;
-  border: solid 2px #fcb900;
+  border: solid 1px #fcb900;
   height: 80%;
   width: 80%;
   display: flex;

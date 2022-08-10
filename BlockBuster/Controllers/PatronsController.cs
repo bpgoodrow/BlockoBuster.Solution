@@ -12,6 +12,7 @@ using System.Security.Claims;
 
 namespace BlockBuster.Controllers
 {
+  [Authorize(Roles="Clerk")]
   public class PatronsController : Controller
   {
     private readonly BlockBusterContext _db;
@@ -28,7 +29,6 @@ namespace BlockBuster.Controllers
       return View(_db.Patrons.ToList());
     }
 
-    [Authorize]
     public ActionResult Create()
     {
       return View();

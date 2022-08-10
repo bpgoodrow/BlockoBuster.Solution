@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlockBuster.Migrations
 {
     [DbContext(typeof(BlockBusterContext))]
-    [Migration("20220809221717_Initial")]
+    [Migration("20220810220811_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

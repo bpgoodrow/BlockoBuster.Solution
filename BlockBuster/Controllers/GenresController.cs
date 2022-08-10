@@ -12,6 +12,7 @@ using System.Security.Claims;
 
 namespace BlockBuster.Controllers
 {
+  [Authorize(Roles = "Clerk")]
   public class GenresController : Controller
   {
     private readonly BlockBusterContext _db;
@@ -22,7 +23,7 @@ namespace BlockBuster.Controllers
       _userManager = userManager;
       _db = db;
     }
-
+    [AllowAnonymous]
     public ActionResult Index()
     {
       return View(_db.Genres.ToList());

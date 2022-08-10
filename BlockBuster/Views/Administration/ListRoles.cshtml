@@ -1,0 +1,41 @@
+@using BlockBuster.ViewModels;
+@using Microsoft.AspNetCore.Identity;
+
+@model IEnumerable<IdentityRole>
+
+<h1>All Roles</h1>
+
+@if (Model.Any())
+{
+  @Html.ActionLink("Add a new Role", "CreateRole", "Administration")
+
+  foreach(var role in Model)
+  {
+    <div class="card mb-3 roleCard">
+      <div class="card-header">
+        Role Id: @role.Id
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">@role.Name</h5>
+      </div>
+      <div class="card-footer">
+        @Html.ActionLink("Edit", "EditRole", "Administration", new {id = @role.Id}, new {@class="btn btn-primary"})
+        @Html.ActionLink("Delete", "DeleteRole", "Administration", new {id = @role.Id}, new {@class="btn btn-primary"})
+      </div>
+    </div>
+  }
+}
+else
+{
+  <div class="card roleCard">
+    <div class="card-header">
+      No Roles Created yet
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">
+        Use the button below to create a role
+      </h5>
+      @Html.ActionLink("Create Role", "CreateRole", "Administration", new { @class="btn btn-primary", style="width: auto;"})
+    </div>
+  </div>
+}
